@@ -1,6 +1,10 @@
+#ifndef GAMEOBJECT_HPP
+#define GAMEOBJECT_HPP
+
+
 class GameObject {
     protected:
-        flaot x;
+        float x;
         float y;
         float width;
         float height;
@@ -9,7 +13,6 @@ class GameObject {
         virtual ~GameObject() = default;
         virtual void update(float deltaTime) = 0;
         void draw(window &renderWindow);
-        hello 123
-        
+};
 
-}
+#endif
