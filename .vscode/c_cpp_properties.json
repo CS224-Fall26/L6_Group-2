@@ -4,7 +4,7 @@
             "name": "Win32",
             "includePath": [
                 "${workspaceFolder}/**",
-                "I:\\My Drive\\Uni Work\\7th Semester\\OOP\\OOP Project\\OOP_Project\\SFML\\include"
+                "C:\\Users\\aneeq\\Documents\\Libraries\\include"
             ],
             "defines": [
                 "_DEBUG",
