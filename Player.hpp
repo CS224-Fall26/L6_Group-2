@@ -21,7 +21,6 @@ class Player : public GameObject {
         float moveSpeed;
         float jumpStrength;
         bool onGround;
-        float invincibleTimer;
         float spawnX;
         float spawnY;
 
@@ -32,12 +31,12 @@ class Player : public GameObject {
         void draw(RenderWindow &window) override;
         void jump();
         void resolveCollision(const Platform& p);
+//        void resolveEnemyCollision(Enemy& e);
         void bounce();
-        void collectCoin(Coin& c);
-        void takeDamage();
+//        void collectCoin(Coin& c);
+//        void takeDamage();
         void respawn();
         void setSpawn(float x, float y);
-        bool isInvincible() const;
         bool isAlive() const;
         void resetRun();
         int getScore() const;
