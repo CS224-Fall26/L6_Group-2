@@ -20,7 +20,7 @@ Player::Player(float x, float y)
       score(0),
       velocityX(0.f),
       velocityY(0.f),
-      moveSpeed(260.f),
+      moveSpeed(200.f),
       jumpStrength(620.f),
       onGround(false),
       invincibleTimer(0.f),
