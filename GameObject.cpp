@@ -16,7 +16,6 @@ bool GameObject::intersects(const GameObject& other) const {
 }
 
 
-// SFML 3: FloatRect uses position/size instead of left/top/width/height
 bool GameObject::intersects(const FloatRect& rect) const {
     return x < rect.position.x + rect.size.x &&
            x + width > rect.position.x &&

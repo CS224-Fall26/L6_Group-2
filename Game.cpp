@@ -7,8 +7,8 @@ using namespace std;
 
 Game::Game()
     : window(VideoMode({960, 540}), "Energy Dash"),
-      player(450.f, 200.f),                   // start above the platform
-      platform(180.f, 420.f, 600.f, 40.f) {   // x, y, width, height
+      player(450.f, 200.f),
+      platform(180.f, 420.f, 600.f, 40.f) {
     window.setFramerateLimit(60);
 }
 
@@ -37,14 +37,13 @@ void Game::update(float deltaTime) {
     player.update(deltaTime);
     player.resolveCollision(platform);
 
-    // Fell off the platform and out of the window: start again
     if (player.getBounds().position.y > 600.f)
         player.respawn();
 }
 
 
 void Game::render() {
-    window.clear(Color(135, 206, 235));   // sky blue
+    window.clear(Color(135, 206, 235));
     platform.draw(window);
     player.draw(window);
     window.display();

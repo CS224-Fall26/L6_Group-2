@@ -32,7 +32,6 @@ class Player : public GameObject {
         void draw(RenderWindow &window) override;
         void jump();
         void resolveCollision(const Platform& p);
-        void resolveEnemyCollision(Enemy& e);
         void bounce();
         void collectCoin(Coin& c);
         void takeDamage();

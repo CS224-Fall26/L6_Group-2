@@ -5,9 +5,9 @@ using namespace sf;
 using namespace std;
 
 namespace {
-    const float GRAVITY = 1400.f;        // pixels per second^2
+    const float GRAVITY = 1400.f;
     const float MAX_FALL_SPEED = 900.f;
-    const float INVINCIBLE_TIME = 2.f;   // seconds of invincibility after a hit
+    const float INVINCIBLE_TIME = 2.f;
     const int   START_LIVES = 3;
     const int   STOMP_POINTS = 100;
 }
@@ -44,18 +44,14 @@ void Player::handleInput() {
 
 
 void Player::update(float deltaTime) {
-    // Gravity
     velocityY += GRAVITY * deltaTime;
     velocityY = min(velocityY, MAX_FALL_SPEED);
 
-    // Move
     x += velocityX * deltaTime;
     y += velocityY * deltaTime;
 
-    // Don't walk off the left edge of the level
     if (x < 0.f) x = 0.f;
 
-    // Becomes true again if resolveCollision() finds a platform underneath us
     onGround = false;
 
     if (invincibleTimer > 0.f)
@@ -64,10 +60,6 @@ void Player::update(float deltaTime) {
 
 
 void Player::draw(RenderWindow &window) {
-    // Blink while invincible
-    if (isInvincible() && static_cast<int>(invincibleTimer * 10.f) % 2 == 0)
-        return;
-
     RectangleShape body({width, height});
     body.setPosition({x, y});
     body.setFillColor(Color(66, 133, 244));
@@ -75,7 +67,6 @@ void Player::draw(RenderWindow &window) {
     body.setOutlineThickness(-2.f);
     window.draw(body);
 
-    // Eyes look in the direction we're moving
     float lookOffset = velocityX > 0.f ? 3.f : (velocityX < 0.f ? -3.f : 0.f);
     RectangleShape eye({6.f, 8.f});
     eye.setFillColor(Color::White);
@@ -94,7 +85,6 @@ void Player::jump() {
 }
 
 
-// Push the player out of the platform along whichever axis has the smallest overlap
 void Player::resolveCollision(const Platform& p) {
     FloatRect pb = p.getBounds();
     if (!intersects(pb))
@@ -110,12 +100,10 @@ void Player::resolveCollision(const Platform& p) {
 
     if (minY < minX) {
         if (overlapTop < overlapBottom) {
-            // Landed on top
             y -= overlapTop;
             if (velocityY > 0.f) velocityY = 0.f;
             onGround = true;
         } else {
-            // Hit head on the underside
             y += overlapBottom;
             if (velocityY < 0.f) velocityY = 0.f;
         }
@@ -129,34 +117,12 @@ void Player::resolveCollision(const Platform& p) {
 }
 
 
-// TODO: remove the #if 0 / #endif once Enemy.cpp exists
-#if 0
-// Landing on an enemy from above defeats it, any other contact hurts the player
-void Player::resolveEnemyCollision(Enemy& e) {
-    if (!e.isAlive() || !intersects(e))
-        return;
-
-    FloatRect eb = e.getBounds();
-    bool fallingOntoIt = velocityY > 0.f && (y + height) - eb.position.y < 20.f;
-
-    if (fallingOntoIt) {
-        e.defeat();
-        bounce();
-        *this += STOMP_POINTS;
-    } else {
-        takeDamage();
-    }
-}
-#endif
-
-
 void Player::bounce() {
     velocityY = -jumpStrength * 0.6f;
     onGround = false;
 }
 
 
-// TODO: remove the #if 0 / #endif once Coin.cpp exists
 #if 0
 void Player::collectCoin(Coin& c) {
     if (c.isCollected() || !intersects(c))
