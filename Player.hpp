@@ -41,6 +41,8 @@ class Player : public GameObject {
         bool isInvincible() const;
         bool isAlive() const;
         void resetRun();
+        int getScore() const;
+        int getLives() const;
         Player& operator+=(int points);
 };
 

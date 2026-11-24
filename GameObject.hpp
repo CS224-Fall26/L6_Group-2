@@ -11,12 +11,13 @@ class GameObject {
         float height;
 
     public:
+        GameObject(float x, float y, float width, float height);
         virtual ~GameObject() = default;
         virtual void update(float deltaTime) = 0;
-        void draw(window &renderWindow);
-        FloatRect getBounds() const;
+        virtual void draw(sf::RenderWindow &window) = 0;
+        sf::FloatRect getBounds() const;
         bool intersects(const GameObject& other) const;
-        bool intersects(const FloatRect& rect) const;
+        bool intersects(const sf::FloatRect& rect) const;
 };
 
 #endif
